@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="app">
+<head>
+    <title>Windows 8</title>
+    <link href="~/Contents/index.css" rel="stylesheet" />
+    <link href="~/Contents/iconmoon/IconMoon.css" rel="stylesheet" />
+    <link href="~/Contents/droidsans/droidsans.css" rel="stylesheet" />
+    <link href="~/Contents/awesome/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body data-ng-controller="home">
+    <section class="section-colours">
+        <section class="container">
+            <section class="menu-container">
+                <button class="button">Welcome</button>
+            </section>
+        </section>
+    </section>
+    <section class="section-content">
+        <section class="master-location">
+            <section data-ng-repeat="master in location.list">
+                <section class="item-location">
+                    <section class="property nav" data-ng-click="location.expose(master)">
+                        <span data-ng-if="!master.loadingChild">
+                            <i class="icon-arrow-right8" data-ng-if="!master.active"></i>
+                            <i class="icon-arrow-down8" data-ng-if="master.active"></i>
+                        </span>
+                        <span data-ng-if="master.loadingChild" style="color:#3399ff;">
+                            <i class="fa fa-cog fa-spin"></i>
+                        </span>
+                    </section>
+                    <section class="property id" data-ng-bind="master.id"></section>
+                    <section class="property volume" data-ng-bind="master.volume"></section>
+                    <section class="property type" data-ng-bind="master.type"></section>
+                    <section class="property useFunction" data-ng-bind="master.useFunction"></section>
+                    <section class="property description" data-ng-bind="master.description"></section>
+                    <section class="property createmenu"><i class="icon-plus4"></i></section>
+                    <section class="property updatemenu"><i class="icon-pen"></i></section>
+                    <section class="property removemenu"><i class="icon-remove2"></i></section>
+                </section>
+                <section class="aria-location" data-ng-if="master.childs.length && master.active">
+                    <div class="clear"></div>
+                    <ng-include src="'template.html'" onload="model = master.childs"></ng-include>
+                    <div class="clear"></div>
+                </section>
+            </section>
+        </section>
+    </section>
+    <script id="template.html" type="text/ng-template">
+        <section class="master-location">
+            <section data-ng-repeat="children in model">
+                <section class="item-location">
+                    <section class="property nav" data-ng-click="location.expose(children)">
+                        <span data-ng-if="!children.loadingChild">
+                            <i class="icon-arrow-right8" data-ng-if="!children.active"></i>
+                            <i class="icon-arrow-down8" data-ng-if="children.active"></i>
+                        </span>
+                        <span data-ng-if="children.loadingChild" style="color:#3399ff;">
+                            <i class="fa fa-cog fa-spin"></i>
+                        </span>
+                    </section>
+                    <section class="property id" data-ng-bind="children.active"></section>
+                    <section class="property volume" data-ng-bind="children.volume"></section>
+                    <section class="property type" data-ng-bind="children.type"></section>
+                    <section class="property useFunction" data-ng-bind="children.useFunction"></section>
+                    <section class="property description" data-ng-bind="children.description"></section>
+                    <section class="property createmenu"><i class="icon-plus4"></i></section>
+                    <section class="property updatemenu"><i class="icon-pen"></i></section>
+                    <section class="property removemenu"><i class="icon-remove2"></i></section>
+                </section>
+                <section class="aria-location" data-ng-if="children.childs.length && children.active">
+                    <ng-include src="'template.html'" onload="model = children.childs" ng-class="nganimate"></ng-include>
+                </section>
+            </section>
+        </section>
+    </script>
+    <section class="section-footer">
+        <section class="container">
+            <p>footer content</p>
+        </section>
+    </section>
+    <script src="~/Javascripts/jquery.js"></script>
+    <script src="~/Javascripts/angular.min.js"></script>
+    <script src="~/Javascripts/angular-animate.min.js"></script>
+    <script src="~/Javascripts/index.js"></script>
+</body>
+</html>
